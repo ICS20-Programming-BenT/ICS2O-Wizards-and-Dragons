@@ -18,7 +18,7 @@ class SplashScene extends Phaser.Scene {
 
   init (data) {
     // Initializing splash scene background colour
-    this.cameras.main.setBackgroundColor("#d4a373")
+    this.cameras.main.setBackgroundColor("#e0aaff")
   }
 
   preload () {
@@ -36,10 +36,25 @@ class SplashScene extends Phaser.Scene {
     // Centring the background image on the screen
     this.splashSceneBackgroundImage.x = 1920 / 2
     this.splashSceneBackgroundImage.y = 1080 / 2
+
+    // Adding some custom text to introduce the game (method taken from https://rexrainbow.github.io/phaser3-rex-notes/docs/site/text/)
+    const text = this.add.text(
+      this.cameras.main.width / 2,
+      this.cameras.main.height / 4.5,
+      "A game made by Ben Thomson",
+      {
+        fontFamily: "Georgia",
+        fontSize: "64px",
+        color: "#5A189A",
+        fontStyle: "Bold",
+        strokeThickness: 5,
+      }
+    )
+    text.setOrigin(0.5) // set the origin of the text to its center
   }
 
   update (time, delta) {
-    // Setting the amount of time during which this scene is shown
+    // Setting the amount of time during which this scene is shown (4 seconds)
     if (time > 4000) {
       
       // Moving on to the title scene

@@ -6,10 +6,10 @@
 // Created on: 05/30/2023
 // This is the Phaser3 configuration file
 
-// Link to splashScene.js
+// Import SplashScene class from ./splashScene.js
 import SplashScene from "./splashScene.js"
 
-// Link to titleScene.js
+// Import SplashScene class from ./titleScene.js
 import TitleScene from "./titleScene.js"
 
 // Creating objects of scenes for managing different scenes in the program
