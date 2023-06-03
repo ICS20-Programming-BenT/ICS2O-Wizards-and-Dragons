@@ -16,7 +16,6 @@ import TitleScene from "./titleScene.js"
 const splashScene = new SplashScene()
 const titleScene = new TitleScene()
 
-
 // Creating a constant to detail the basic Phaser game
 const  config = {
   // Type of game
@@ -52,7 +51,6 @@ const game = new Phaser.Game(config)
 // Loading the different scenes
 game.scene.add("splashScene", splashScene)
 game.scene.add("titleScene", titleScene)
-
 
 // Starting the splash scene
 game.scene.start("splashScene")
