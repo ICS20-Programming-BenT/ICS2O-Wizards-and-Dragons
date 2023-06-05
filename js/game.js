@@ -6,15 +6,17 @@
 // Created on: 05/30/2023
 // This is the Phaser3 configuration file
 
-// Import SplashScene class from ./splashScene.js
+// Importing the scenes
 import SplashScene from "./splashScene.js"
-
-// Import SplashScene class from ./titleScene.js
 import TitleScene from "./titleScene.js"
+import MenuScene from "./menuScene.js"
+import GameScene from "./gameScene.js"
 
 // Creating objects of scenes for managing different scenes in the program
 const splashScene = new SplashScene()
 const titleScene = new TitleScene()
+const menuScene = new MenuScene()
+const gameScene = new GameScene()
 
 // Creating a constant to detail the basic Phaser game
 const  config = {
@@ -51,6 +53,8 @@ const game = new Phaser.Game(config)
 // Loading the different scenes
 game.scene.add("splashScene", splashScene)
 game.scene.add("titleScene", titleScene)
+game.scene.add("menuScene", menuScene)
+game.scene.add("gameScene", gameScene)
 
 // Starting the splash scene
 game.scene.start("splashScene")
