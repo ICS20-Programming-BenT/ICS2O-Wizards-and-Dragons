@@ -33,7 +33,7 @@ class GameScene extends Phaser.Scene {
     console.log("Game Scene")
 
     // Giving Phaser the images for the background, the wizard and the missile
-    this.load.image("mountainBackground", "images/mountainBackgroundForGame.png")
+    this.load.image("mountainBackground", "images/gameSceneImage.png")
     this.load.image("wizard", "images/wizard.png")
     this.load.image("missile", "images/magicMissile.png")
   }
