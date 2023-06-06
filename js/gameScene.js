@@ -60,7 +60,7 @@ class GameScene extends Phaser.Scene {
     if (keyLeftObj.isDown === true) {
       this.wizard.x -= 15
 
-      // Wrapping the wizard to the other side of the screen when it is moved off the right of the screen
+      // Wrapping the wizard to the other side of the screen when it is moved off the left of the screen
       if (this.wizard.x < 0) {
         this.wizard.x = 1920;
       }
@@ -70,9 +70,9 @@ class GameScene extends Phaser.Scene {
     if (keyRightObj.isDown === true) {
       this.wizard.x += 15
 
-      // Wrapping the wizard to the other side of the screen when it is moved off the left of the screen
+      // Wrapping the wizard to the other side of the screen when it is moved off the right of the screen
       if (this.wizard.x > 1920) {
-        this.wizard.x = 0;
+       this.wizard.x = 0;
       }
     }
 
