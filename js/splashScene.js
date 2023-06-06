@@ -33,9 +33,20 @@ class SplashScene extends Phaser.Scene {
     // Displaying the image in the preload() section
     this.splashSceneBackgroundImage = this.add.sprite(0, 0, "splashSceneBackground")
 
-    // Centring the background image on the screen
+    // Initializing the position of the image on the screen
     this.splashSceneBackgroundImage.x = 1920 / 2
-    this.splashSceneBackgroundImage.y = 1080 / 2
+    this.splashSceneBackgroundImage.y = 1080
+
+    // Defining the target position of the image (middle of the screen)
+    const targetY = 540;
+    
+    // Adding a sliding animation to the image (method learned from https://rexrainbow.github.io/phaser3-rex-notes/docs/site/tween/)
+    this.tweens.add({
+      targets: this.splashSceneBackgroundImage,
+      y: targetY,
+      duration: 1000,
+      ease: "Linear",
+    });
 
     // Adding some custom text to introduce the game (method taken from https://rexrainbow.github.io/phaser3-rex-notes/docs/site/text/)
     const text = this.add.text(

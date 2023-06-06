@@ -16,7 +16,7 @@ class MenuScene extends Phaser.Scene {
     // Assigning null to menu scene background image
     this.menuSceneBackgroundImage = null
     
-    // Button to start game
+    // Assigning null to starting button
     this.startButton = null
   }
 
@@ -29,25 +29,33 @@ class MenuScene extends Phaser.Scene {
     // Places Menu Scene in the console to let programmer know the scene is being displayed
     console.log("Menu Scene")
 
+    // Giving Phaser the chosen images for background and start button
     this.load.image("menuSceneBackground", "./images/menuSceneImage.png")
     this.load.image("startButton", "./images/startButton.png")
   }
 
   create (data) {
+    // Displaying the menu scene background image (must be scaled to fit the screen)
     this.menuSceneBackgroundImage = this.add.sprite(0, 0, "menuSceneBackground").setScale(1.7)
+
+    // Initializing the position of the image on the screen
     this.menuSceneBackgroundImage.x = 1920 / 2
     this.menuSceneBackgroundImage.y = 1080 / 2
 
-    // Start button
+     // Displaying image for start button
     this.startButton = this.add.sprite(1920 / 2, (1080 / 2) + 50, "startButton")
+
+    // Making start button interactive (responsive to user's click)
     this.startButton.setInteractive({ useHandCursor: true })
+
+    // When start button is clicked, call a function that will move on to the game scene
     this.startButton.on("pointerdown", () => this.clickButton())
   }
 
   update (time, delta) {
   }
 
-  // Function for clicking button
+  // Function for when start button is clicked
   clickButton () {
     this.scene.start("gameScene")
   }
