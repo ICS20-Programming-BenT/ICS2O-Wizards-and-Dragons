@@ -6,7 +6,7 @@
 // Created on: 05/30/2023
 // This is the Title Scene
 
-// The code written below adds to the code already in Phaser.Scene
+// This class is the Title Scene
 class TitleScene extends Phaser.Scene {
   constructor () {
 

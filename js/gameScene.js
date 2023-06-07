@@ -6,7 +6,7 @@
 // Created on: 06/05/2023
 // This is the Game Scene
 
-// The code written below adds to the code already in Phaser.Scene
+// This class is the Game Scene
 class GameScene extends Phaser.Scene {
 
   // Create a dragon
@@ -31,6 +31,13 @@ class GameScene extends Phaser.Scene {
 
     // Adding the new dragon created to the dragon group
     this.dragonGroup.add(aDragon)
+
+    // Creating a timer event that calls createDragon function every 2 seconds
+    this.time.addEvent({
+      delay: 1500,
+      callback: this.createDragon,
+      callbackScope: this,
+    })
   }
   
   constructor () {
@@ -109,10 +116,6 @@ class GameScene extends Phaser.Scene {
       this.score += 1
       this.scoreText.setText("Score: " + this.score.toString())
 
-      // Recreating two new dragons for each that is destroyed
-      this.createDragon()
-      this.createDragon()
-
       // Binding above code to the class created at the top of the file
     }.bind(this))
 
@@ -132,6 +135,9 @@ class GameScene extends Phaser.Scene {
       this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over!\nClick to play again.", this.gameOverTextStyle).setOrigin(0.5)
       this.gameOverText.setInteractive({ useHandCursor: true})
       this.gameOverText.on("pointerdown", () => this.scene.start("gameScene"))
+
+      // Reset score to 0
+      this.score = 0;
     }.bind(this))
   }
 

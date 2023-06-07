@@ -6,7 +6,7 @@
 // Created on: 05/30/2023
 // This is the Splash Scene
 
-// The code written below adds to the code already in Phaser.Scene
+// This class is the Splash Scene
 class SplashScene extends Phaser.Scene {
   constructor () {
     // Using the "splashScene" key to create an object
