@@ -9,7 +9,7 @@
 // This class is the Game Scene
 class GameScene extends Phaser.Scene {
 
-  // Create a dragon
+  // Function to create a dragon
   createDragon() {
     // Creating dragons at a random x location between 1 and 1920 px
     const dragonXLocation = Math.floor(Math.random() * 1920) +1
@@ -34,7 +34,6 @@ class GameScene extends Phaser.Scene {
   }
   
   constructor () {
-
     // Using the "gameScene" key to create an object
     super({ key: "gameScene"})
 
@@ -121,8 +120,6 @@ class GameScene extends Phaser.Scene {
 
       // Recreating one new dragon for each that is destroyed
       this.createDragon()
-
-      // Binding above code to the class created at the top of the file
     }.bind(this))
 
     // Adding a physics collider so that when a dragon hits the wizard, a function is called
@@ -142,8 +139,8 @@ class GameScene extends Phaser.Scene {
       this.gameOverText.setInteractive({ useHandCursor: true})
       this.gameOverText.on("pointerdown", () => this.scene.start("gameScene"))
 
-      // Reset score to 0
-      this.score = 0;
+      // Resetting score to 0
+      this.score = 0
     }.bind(this))
   }
 
@@ -197,7 +194,7 @@ class GameScene extends Phaser.Scene {
       this.fireMissile = false
     }
 
-    // To make missiles move up the screen
+    // Making the missiles move up the screen
     this.missileGroup.children.each(function (item) {
       item.y -= 15
       if (item.y < 0) {
