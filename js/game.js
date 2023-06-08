@@ -13,7 +13,7 @@ import MenuScene from "./menuScene.js"
 import GameScene from "./gameScene.js"
 import InstructionsScene from "./instructionsScene.js"
 
-// Creating objects of scenes for managing different scenes in the program
+// Creating the new scenes
 const splashScene = new SplashScene()
 const titleScene = new TitleScene()
 const menuScene = new MenuScene()
@@ -40,7 +40,7 @@ const  config = {
   // Setting background color
   backgroundColor: 0xffffff,
 
-  // Allowing scale of background to change
+  // Allowing scale of screen to change
   scale: {
     mode: Phaser.Scale.FIT,
     

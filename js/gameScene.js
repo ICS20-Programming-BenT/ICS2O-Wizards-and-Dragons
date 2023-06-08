@@ -11,33 +11,26 @@ class GameScene extends Phaser.Scene {
 
   // Create a dragon
   createDragon() {
-    // Creating enemies at a random x location between 1 and 1920 px
+    // Creating dragons at a random x location between 1 and 1920 px
     const dragonXLocation = Math.floor(Math.random() * 1920) +1
 
     // Using a variable and Math.random() to make the dragons less predictable
     let dragonXVelocity = Math.floor(Math.random() * 50) + 1
 
-    // Making the dragons move slightly up or down
+    // Making the dragons move slightly left or right
     dragonXVelocity *= Math.round(Math.random()) ? 1 : -1
 
     // Creating a variable that makes a dragon appear each time this function is called
     const aDragon = this.physics.add.sprite(dragonXLocation, -100, "dragon").setScale(0.20)
 
     // Adding an y velocity to the dragon
-    aDragon.body.velocity.y = 200
+    aDragon.body.velocity.y = 150
 
     // Adding the x velocity using the variable defined above
     aDragon.body.velocity.x = dragonXVelocity
 
     // Adding the new dragon created to the dragon group
     this.dragonGroup.add(aDragon)
-
-    // Creating a timer event that calls createDragon function every 2 seconds
-    this.time.addEvent({
-      delay: 1500,
-      callback: this.createDragon,
-      callbackScope: this,
-    })
   }
   
   constructor () {
@@ -45,19 +38,21 @@ class GameScene extends Phaser.Scene {
     // Using the "gameScene" key to create an object
     super({ key: "gameScene"})
 
-    // Assigning null to game scene background image
+    // Constructing background image
     this.background = null
 
-    // Assigning null to wizard image
+    // Constructing the wizard
     this.wizard = null
 
     // Initializing the fire missile variable as false
     this.fireMissile = false
 
+    // Initializing the score and applying style to the score text
     this.score = 0
     this.scoreText = null
     this.scoreTextStyle = { font: "65px Georgia", fill: "#48bfe3", align: "center"}
 
+    // Inititializing the game over text and applying style to it
     this.gameOverText = null
     this.gameOverTextStyle = { font: "65px Georgia", fill: "#5a189a", align: "center"}
   }
@@ -71,7 +66,7 @@ class GameScene extends Phaser.Scene {
     // Places Game Scene in the console to let programmer know the scene is being displayed
     console.log("Game Scene")
 
-    // Giving Phaser the images for the background, the wizard, the missile and the dragon 
+    // Loading in the images for the background, wizard, missile and dragon
     this.load.image("mountainBackground", "images/gameSceneImage.png")
     this.load.image("wizard", "images/wizard.png")
     this.load.image("missile", "images/magicMissile.png")
@@ -84,7 +79,7 @@ class GameScene extends Phaser.Scene {
   }
 
   create (data) {
-    // Displaying the game scene background image
+    // Creating the background image and placing it into the scene
     this.background = this.add.image(0, 0, "mountainBackground").setScale(1.0)
     this.background.setOrigin(0, 0)
 
@@ -101,6 +96,14 @@ class GameScene extends Phaser.Scene {
     this.dragonGroup = this.add.group()
     this.createDragon()
 
+    // Creating a timer to control the interval for creating dragons (method learned from https://rexrainbow.github.io/phaser3-rex-notes/docs/site/timer/)
+    this.dragonTimer = this.time.addEvent({
+      delay: 700,
+      callback: this.createDragon,
+      callbackScope: this,
+      loop: true
+    });
+
     // Adding a physics collider so that when missiles hit dragons, a function is called
     this.physics.add.collider(this.missileGroup, this.dragonGroup, function (missileCollide, dragonCollide) {
       // Destroying the dragon upon collision
@@ -112,9 +115,12 @@ class GameScene extends Phaser.Scene {
       // Playing the explosion sound effect
       this.sound.play("explosion")
 
-       // Updating score upon explosion of dragon
+      // Updating score upon explosion of dragon
       this.score += 1
       this.scoreText.setText("Score: " + this.score.toString())
+
+      // Recreating one new dragon for each that is destroyed
+      this.createDragon()
 
       // Binding above code to the class created at the top of the file
     }.bind(this))
