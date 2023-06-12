@@ -46,12 +46,15 @@ class GameScene extends Phaser.Scene {
     // Initializing the fire missile variable as false
     this.fireMissile = false
 
+    // Initializing the high score value
+    this.highScore = 0;
+
     // Initializing the score and applying style to the score text
     this.score = 0
     this.scoreText = null
     this.scoreTextStyle = { font: "65px Georgia", fill: "#48bfe3", align: "center"}
 
-    // Inititializing the game over text and applying style to it
+    // Initializing the game over text and applying style to it
     this.gameOverText = null
     this.gameOverTextStyle = { font: "65px Georgia", fill: "#5a189a", align: "center"}
   }
@@ -85,6 +88,9 @@ class GameScene extends Phaser.Scene {
     // Displaying styled score text
     this.scoreText = this.add.text(10, 10, "Score: " + this.score.toString(), this.scoreTextStyle)
 
+    // Displaying the styled high score text
+    this.highScoreText = this.add.text(10, 80, "Current High Score: " + this.highScore.toString(), this.scoreTextStyle);
+
     // Creating the wizard sprite on the screen
     this.wizard = this.physics.add.sprite(1920 / 2, 1080 - 100, "wizard").setScale(0.35)
 
@@ -117,6 +123,15 @@ class GameScene extends Phaser.Scene {
       // Updating score upon explosion of dragon
       this.score += 1
       this.scoreText.setText("Score: " + this.score.toString())
+
+      // Checking if the current score is higher than the high score
+      if (this.score > this.highScore) {
+        // Updating the high score
+        this.highScore = this.score;
+    
+        // Updating the high score text and displaying it on the screen
+        this.highScoreText.setText("Current High Score: " + this.highScore.toString());
+      }
 
       // Recreating one new dragon for each that is destroyed
       this.createDragon()
@@ -154,6 +169,9 @@ class GameScene extends Phaser.Scene {
     if (keyLeftObj.isDown === true) {
       this.wizard.x -= 15
 
+      // Flipping the wizard horizontally to make it face the direction in which it is going (method taken from: https://gamedev.stackexchange.com/questions/146525/how-to-flip-sprites-with-different-dimensions-horizontally)
+      this.wizard.setScale(0.35, 0.35)
+
       // Wrapping the wizard to the other side of the screen when it is moved off the left of the screen
       if (this.wizard.x < 0) {
         this.wizard.x = 1920;
@@ -163,6 +181,9 @@ class GameScene extends Phaser.Scene {
     // If the right arrow is pressed, move the wizard to the right
     if (keyRightObj.isDown === true) {
       this.wizard.x += 15
+
+      // Flipping the wizard horizontally to make it face the direction in which it is going (method taken from: https://gamedev.stackexchange.com/questions/146525/how-to-flip-sprites-with-different-dimensions-horizontally)
+      this.wizard.setScale(-0.35, 0.35);
 
       // Wrapping the wizard to the other side of the screen when it is moved off the right of the screen
       if (this.wizard.x > 1920) {
@@ -178,8 +199,18 @@ class GameScene extends Phaser.Scene {
         // Changing the fire missile variable to true, indicating that a missile has been fired
         this.fireMissile = true
 
+        let missileX;
+
+        if (this.wizard.scaleX === 0.35) {
+          missileX = this.wizard.x - 40;
+        } 
+        // Else, if missle loction is negative, let missile location + 140
+        else {
+          missileX = this.wizard.x + 40;
+        }
+
         // Displaying a new missile that will appear on the screen
-        const aNewMissile = this.physics.add.sprite(this.wizard.x - 40, this.wizard.y - 90, "missile").setScale(0.20)
+        const aNewMissile = this.physics.add.sprite(missileX, this.wizard.y - 90, "missile").setScale(0.20)
 
         // Adding the new missile to the group of missiles in the "create" section
         this.missileGroup.add(aNewMissile)
