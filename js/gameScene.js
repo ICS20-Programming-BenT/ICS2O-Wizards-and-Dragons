@@ -199,12 +199,14 @@ class GameScene extends Phaser.Scene {
         // Changing the fire missile variable to true, indicating that a missile has been fired
         this.fireMissile = true
 
+        // Initializing missileX variable
         let missileX;
 
+        // If the scale is positive, set the missile x location to -40
         if (this.wizard.scaleX === 0.35) {
           missileX = this.wizard.x - 40;
         } 
-        // Else, if missle loction is negative, let missile location + 140
+        // Otherwise, set the missile x location to +40
         else {
           missileX = this.wizard.x + 40;
         }
